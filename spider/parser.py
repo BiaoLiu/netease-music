@@ -3,10 +3,11 @@ from spider.models import Process
 
 
 def parser_artist(artist_id):
-    process = Process.objects.get_or_create(pk=artist_id)
-    if process.is_success:
+    process,is_created = Process.objects.get_or_create(pk=artist_id)
+    if not is_created:
         return
 
     print('Starting fetch artist:{}'.format(artist_id))
+
 
 

@@ -1,5 +1,5 @@
 # coding: utf-8
-from neteasemusic.settings import PROXIES
+from django.conf import settings
 from fake_useragent import UserAgent
 import requests
 import random
@@ -8,8 +8,8 @@ TIMEOUT = 5
 
 
 def choice_proxy():
-    if PROXIES:
-        return random.choice(PROXIES)
+    if settings.PROXIES:
+        return random.choice(settings.PROXIES)
     return ''
 
 
@@ -33,10 +33,16 @@ def fetch(url, retry=0):
             return fetch(url, retry=retry + 1)
         raise
 
+
 def post(url):
-    headers={
-        'Cookie':'appver=1.5.0.75771;',
-        'Referer':'http://music.163.com/'
+    headers = {
+        'Cookie': 'appver=1.5.0.75771;',
+        'Referer': 'http://music.163.com/'
     }
 
-    return requests.post(url,headers=headers,data=)
+    return requests.post(url, headers=headers, data=)
+
+
+def get_html(url):
+    result = fetch(url)
+    return result.text
