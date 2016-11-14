@@ -1,8 +1,12 @@
 # coding: utf-8
+from lxml import etree
+
 from django.conf import settings
 from fake_useragent import UserAgent
 import requests
 import random
+
+from spider.encrypt import gen_data
 
 TIMEOUT = 5
 
@@ -40,9 +44,9 @@ def post(url):
         'Referer': 'http://music.163.com/'
     }
 
-    return requests.post(url, headers=headers, data=)
+    return requests.post(url, headers=headers, data=gen_data())
 
 
 def get_html(url):
     result = fetch(url)
-    return result.text
+    return etree.HTML(result.text)

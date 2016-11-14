@@ -1,7 +1,11 @@
 # coding: utf-8
+import base64
 import json
 
 # https://github.com/darknessomi/musicbox/wiki/网易云音乐新版WebAPI分析
+from Crypto.Cipher import AES
+
+
 def aes_encrypt(text, secKey):
     pad = 16 - len(text) % 16
     text = text + pad * chr(pad)

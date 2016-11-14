@@ -34,6 +34,11 @@ class AuthUser(AbstractUser):
         return USER_URL.format(self.id)
 
 
+class NeteaseUser(BaseModel):
+    name = models.CharField(max_length=100, null=True)
+    picture = models.CharField(max_length=200, null=True)
+
+
 class Artist(BaseModel):
     name = models.CharField(max_length=100, null=True)
     picture = models.CharField(max_length=200, null=True)
@@ -51,6 +56,7 @@ class Artist(BaseModel):
 class Song(BaseModel):
     name = models.CharField(max_length=100, null=True)
     comment_count = models.IntegerField()
+
     # comments = db.ListField(db.ReferenceField('Comment'))
     artist = models.ForeignKey(Artist)
 
@@ -106,7 +112,7 @@ class Comment(BaseModel):
         }
 
 
-STATUS = (
+PROCESS_STATUS = (
     ('PENDING', 0),
     ('SUCCEEDED', 1),
     ('FAILED', 2)
@@ -114,14 +120,14 @@ STATUS = (
 
 
 class Process(BaseModel):
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=PROCESS_STATUS, default=0)
 
     @property
     def is_success(self):
-        return self.status == self.SUCCEEDED
+        return self.status == 1
 
     def make_succeed(self):
-        return self.update(status=self.SUCCEEDED)
+        return self.objects.update(status=1)
 
     def make_fail(self):
-        return self.update(status=self.FAILED)
+        return self.objects.update(status=2)
