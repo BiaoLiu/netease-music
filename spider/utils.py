@@ -32,7 +32,7 @@ def fetch(url, retry=0):
 
     try:
         return s.get(url, timeout=TIMEOUT, proxies=proxies)
-    except requests.exceptions.RequestException:
+    except requests.RequestException:
         if retry < 3:
             return fetch(url, retry=retry + 1)
         raise
