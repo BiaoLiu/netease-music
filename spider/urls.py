@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     url(r'^test/$', views.test),
 
-    url(r'^bstest/$', views.bs4_test)
+    url(r'^bstest/$', views.bs4_test),
+
+    url(r'^music/$', views.get_music)
 
 ]

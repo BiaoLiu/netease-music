@@ -33,8 +33,8 @@ def parser_artist(artist_id):
     :return:
     '''
     process, is_created = Process.objects.get_or_create(pk=artist_id)
-    if not is_created:
-        return
+    # if not is_created:
+    #     return
 
     print('Starting fetch artist: {}'.format(artist_id))
     start = time.time()
